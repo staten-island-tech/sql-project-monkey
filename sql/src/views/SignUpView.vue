@@ -50,14 +50,13 @@ async function signUp(supabase, userEmail, userPassword) {
     let {
       data: { user }
     } = await supabase.auth.getUser()
-    await supabase.from('logins').insert([{ user_id: user.id, email: userEmail }])
+    await supabase.from('login').insert([{ user_id: user.id, email: userEmail }])
   } catch (error) {}
 }
 
 export default {
   methods: {
     async signup(e) {
-      const emailCheck = await supabase.from('').select().eq('email', this.email)
       e.preventDefault()
       let userEmail = document.getElementById('email').value
       let userPassword = document.getElementById('password').value
@@ -68,8 +67,6 @@ export default {
         alert('Your confirmed password does not match')
       } else if (userPassword.length <= 5) {
         alert('Password must contain at least 6 charaters')
-      } else if (emailCheck.data.length > 0) {
-        alert('This email is already in use or is not real')
       } else {
         signUp(supabase, userEmail, confirmed)
         authStore()
