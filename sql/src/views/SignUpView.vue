@@ -26,7 +26,7 @@
       </div>
       <input type="submit" value="Sign Up" id="submit" @click="signup" />
     </form>
-    <div class="login">
+    <div class="toLogin">
       Already have an account? <a><RouterLink to="/login">Login here</RouterLink></a>
     </div>
   </div>
@@ -46,7 +46,7 @@ async function signUp(supabase, userEmail, userPassword) {
     let {
       data: { user }
     } = await supabase.auth.getUser()
-    await supabase.from('login').insert([{ user_id: user.id, email: userEmail }])
+    await supabase.from('logins').insert([{ user_id: user.id, email: userEmail }])
   } catch (error) {}
 }
 
