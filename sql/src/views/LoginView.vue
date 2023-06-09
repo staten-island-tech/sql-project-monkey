@@ -6,56 +6,77 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
   />
   <a
-    ><button class="back"><i class="fa fa-home"></i></button
+    ><RouterLink to="/home"
+      ><button class="back"><i class="fa fa-home"></i></button></RouterLink
   ></a>
-  <h1>Login</h1>
-  <form>
-    <div class="loginForm">
-      <div class="email">
-        <input type="email" placeholder="Email" id="email" />
+  <div class="login">
+    <h1>Login</h1>
+    <form>
+      <div class="loginForm">
+        <h2 class="text">Email</h2>
+        <div class="email">
+          <input type="email" id="email" />
+        </div>
+        <h2 class="text">Password</h2>
+        <div class="password">
+          <input type="password" id="password" />
+        </div>
+        <input type="submit" value="Log In" id="login" @click="login" />
       </div>
-      <div class="password">
-        <input type="password" placeholder="Password" id="password" />
-      </div>
-      <input type="submit" value="Log In" id="login" @click="Login" />
+    </form>
+    <div class="toSignUp">
+      Don't have an account?<a><RouterLink to="/signup"> Sign Up Here</RouterLink></a>
     </div>
-  </form>
-  <div class="toSignUp">
-    Don't have an account?
-    <a><RouterLink to="/signup">Sign Up Here</RouterLink></a>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { authStore } from '../stores/counter'
+import { supabase } from '../supabase'
+import router from '../router'
+import { RouterLink } from 'vue-router'
+
+async function signIn(supabase, userEmail, userPassword) {
+  try {
+    await supabase.auth.signInWithPassword({
+      email: userEmail,
+      password: userPassword
+    })
+
+    let {
+      data: { user }
+    } = await supabase.auth.getUser()
+    authStore().loadUser(user.id)
+    router.push('requestlog')
+  } catch (error) {}
+}
 
 export default {
-  setup() {
-    const email = ref('')
-    const password = ref('')
-
-    const handleSignin = async () => {
-      try {
-        const { error } = await supabase.auth.signIn({
-          email: email.value,
-          password: password.value
-        })
-        if (error) throw error
-      } catch (error) {
-        alert(error.error_description || error.message)
+  methods: {
+    async login(a) {
+      a.preventDefault()
+      let userEmail = document.getElementById('email').value
+      let userPassword = document.getElementById('password').value
+      if (userEmail === '' || userPassword === '') {
+        alert('Please fill out all fields')
+      } else if (error) {
+        alert('Please check your credentials')
+      } else {
+        signIn(supabase, userEmail, userPassword)
       }
-    }
-
-    return {
-      email,
-      password,
-      handleSignin
-    }
-  }
+      this.$emit('loggedin')
+    },
+    emits: ['loggedin']
+  },
+  components: { RouterLink }
 }
 </script>
 
 <style>
-.button {
+.text {
+  margin-top: 1rem;
+}
+#login {
+  margin-top: 1rem;
 }
 </style>

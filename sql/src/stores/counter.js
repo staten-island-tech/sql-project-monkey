@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import supabase from '../lib/supabaseClient'
+import { supabase } from '../supabase'
 
 export const authStore = defineStore('auth', {
   state: () => {
