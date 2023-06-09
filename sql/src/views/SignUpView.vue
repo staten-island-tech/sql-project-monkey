@@ -14,7 +14,7 @@
     <form class="signUpForm">
       <h2 class="text">Email</h2>
       <div class="email">
-        <input type="email" id="email" :rules="emailRules" />
+        <input type="email" id="email" />
       </div>
       <h2 class="text">Password</h2>
       <div class="password">
