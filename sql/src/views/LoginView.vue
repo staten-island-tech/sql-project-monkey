@@ -47,7 +47,9 @@ async function signIn(supabase, userEmail, userPassword) {
       data: { user }
     } = await supabase.auth.getUser()
     authStore().loadUser(user.id)
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export default {
@@ -56,13 +58,14 @@ export default {
       a.preventDefault()
       let userEmail = document.getElementById('email').value
       let userPassword = document.getElementById('password').value
-      const error = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email: this.userEmail,
         password: this.userPassword
       })
       if (userEmail === '' || userPassword === '') {
         alert('Please fill out all fields')
       } else if (error) {
+        console.log(error)
         alert('Please check your credentials')
       } else {
         signIn(supabase, userEmail, userPassword)
