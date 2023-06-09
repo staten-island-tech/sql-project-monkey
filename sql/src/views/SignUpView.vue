@@ -8,19 +8,11 @@
       </div>
       <h2 class="text">Password</h2>
       <div class="password">
-        <input
-          type="password"
-          id="password"
-          :rules="passwordRules"
-          :type="passwordShow ? 'text' : 'password'"
-          :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="passwordShow = !passwordShow"
-          required
-        />
+        <input type="password" id="password" />
       </div>
       <h2 class="text">Re-enter Password</h2>
       <div class="password">
-        <input type="password" id="password-confirm" />
+        <input type="password" id="confirm" />
       </div>
       <input type="submit" value="Sign Up" id="submit" @click="signup" />
     </form>
@@ -53,34 +45,25 @@ async function signUp(supabase, userEmail, userPassword) {
 }
 
 export default {
-  data: () => ({
-    loading: false,
-    passwordShow: false,
-    email: '',
-    emailRules: [
-      (v) => !!v || 'E-mail is required',
-      (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
-    ],
-    password: '',
-    passwordRules: [
-      (v) => !!v || 'Password is required',
-      (v) => (v && v.length >= 6) || 'Password must be 6  characters or more!'
-    ]
-  }),
   methods: {
-    async signup(a) {
-      a.preventDefault()
-
+    async signup(e) {
+      const emailCheck = await supabase.from('').select().eq('email', this.email)
+      e.preventDefault()
       let userEmail = document.getElementById('email').value
       let userPassword = document.getElementById('password').value
-      let userPasswordConfirmed = document.getElementById('password-confirm').value
-
-      if (userEmail === '' || userPassword === '') {
-        console.error('error')
+      let confirmed = document.getElementById('confirm').value
+      if (userEmail === '' || userPassword === '' || confirmed === '') {
+        alert('Please fill out all fields')
+      } else if (userPassword != confirmed) {
+        alert('Your confirmed password does not match')
+      } else if (userPassword.length <= 5) {
+        alert('Password must contain at least 6 charaters')
+      } else if (emailCheck.data.length > 0) {
+        alert('This email is already in use or is not real')
       } else {
-        signUp(supabase, userEmail, userPasswordConfirmed)
+        signUp(supabase, userEmail, confirmed)
         authStore()
-        router.push('loginpage')
+        router.push('login')
       }
     }
   }
