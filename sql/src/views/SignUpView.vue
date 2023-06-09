@@ -43,10 +43,6 @@ async function signUp(supabase, userEmail, userPassword) {
       email: userEmail,
       password: userPassword
     })
-    await supabase.auth.signInWithPassword({
-      email: userEmail,
-      password: userPassword
-    })
     let {
       data: { user }
     } = await supabase.auth.getUser()
