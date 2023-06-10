@@ -46,8 +46,12 @@ async function signUp(supabase, userEmail, userPassword) {
     let {
       data: { user }
     } = await supabase.auth.getUser()
-    await supabase.from('logins').insert([{ user_id: user.id, email: userEmail }])
-  } catch (error) {}
+    const { data, error } = await supabase
+      .from('logins')
+      .insert([{ user_id: user.id, email: userEmail }])
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export default {
