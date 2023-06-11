@@ -8,11 +8,11 @@ export const useCartStore = defineStore(
     const cart = ref([])
 
     // reset function
-    function $reset() {
+    function reset() {
       cart.value = []
     }
 
-    return { cart, $reset }
+    return { cart, reset }
   },
   { persist: true }
 )

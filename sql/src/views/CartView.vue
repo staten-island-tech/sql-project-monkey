@@ -1,40 +1,46 @@
 <template>
-   <Cart v-for="(monkey, index) in cartStore.cart"
-   :monkey="monkey" :key="monkey.id" :index="index" :shipping="shippingTime(monkey.id)"
-   />
+   <Cart v-for="monkey in cartStore.cart"
+   :monkey="monkey" :key="monkey.id" />
+
+   <div class="cart-info">
+      Total price: ${{ calculateTotal() }}
+        <p v-show="cartStore.cart.length === 0">Your cart is empty.</p>
+      Shipping Time: {{ getShippingTime() }} days
+
+      </div>
 
 </template>
 
 <script setup>
 import { onMounted } from 'vue'
-import Cart from '../components/Cart.Vue';
+import Cart from '../components/Cart.vue';
 import { useCartStore } from '../stores/cart.js'
+import { supabase } from '../supabase';
 const cartStore = useCartStore()
 
-async function shippingTimes() {
-  const { data } = await supabase
-    .from('Shipping')
-    .select('id, "Shipping Days"');
+function calculateTotal() {
+        let total = 0;
+      for (let i = 0; i < cartStore.cart.length; i++) {
+        total += cartStore.cart[i].price * cartStore.cart[i].count;
+      }
+      return total;
+    };
+  
+function getShippingTime() {
+  let shippingTime = 0;
 
-  console.log(data);
-  return data;
-}
-
-async function getCartData() {
-  const data = await shippingTimes();
-
-  cartStore.cart.forEach(async (monkey) => {
-    const shippingData = data.find((data) => data.id === monkey.id);
-    if (shippingData) {
-      const shippingTime = shippingData['Shipping Days'];
-      monkey.shippingTime = shippingTime;
+  cartStore.cart.forEach((monkey) => {
+    if (monkey.shipping > shippingTime) {
+      shippingTime = monkey.shipping;
     }
   });
+
+  return shippingTime;
 }
 
 onMounted(() => {
   //upon the page loading, take all the products and display them
-  getCartData()
+
 })
 
 </script>

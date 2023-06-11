@@ -8,7 +8,7 @@ import { supabase } from '../supabase'
 
 //import stores
 import { useMonkeyStore } from '../stores/monkey.js'
-import MonkeyCard from '../components/MonkeyCard.Vue'
+import MonkeyCard from '../components/MonkeyCard.vue'
 const monkeyStore = useMonkeyStore()
 
 async function getMonkeys() {
@@ -17,7 +17,7 @@ async function getMonkeys() {
   monkeyStore.monkey = data
 
   monkeyStore.filtered = monkeyStore.monkey //the filtered products are simply all the data/products, since no sorting or filtering is required upon loading
-  console.log(data)
+  console.log(monkeyStore.monkey)
 }
 
 onMounted(() => {

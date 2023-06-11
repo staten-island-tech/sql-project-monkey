@@ -1,10 +1,10 @@
 <template>
   <div class="card">
     <h2 class="card-name">{{ monkey.name }}</h2>
-    <!-- <img class="card-img" :src=" monkey.img" :alt="monkey.name" /> -->
+    <img class="card-img" :src=" monkey.image" :alt="monkey.name" />
     <h3 class="card-type">{{ monkey.Type }}</h3>
     <h3 class="card-gender">{{ monkey.Gender }}</h3>
-    <!-- <h3 class="card-age">{{ monkey.age }}</h3> -->
+    <h3 class="card-age">{{ monkey.age }}</h3>
     <h3 class="card-price">Price: ${{ monkey.Price }}</h3>
     <button class="card-add" @click="addToCart">Add to Cart</button>
   </div>
@@ -21,10 +21,25 @@ export default {
     monkey: Object
   },
   methods: {
+  addToCart() {
+    const { name, Type, ShippingTime, Price, image} = this.monkey;
+    let card = cartStore.cart.find((item) => item.name === name);
     
-    addToCart() {
-      cartStore.cart.push({ monkey: this.monkey })
+    if (card) {
+      card.count++;
+      console.log(card.count);
+    } else {
+      cartStore.cart.push({
+        name: name,
+        type: Type,
+        shipping: ShippingTime,
+        price: Price,
+        image: image,
+        count: 1,
+      });
+      console.log(cartStore.cart);
     }
-  }
-}
+  },}}
+  
+      
 </script>
