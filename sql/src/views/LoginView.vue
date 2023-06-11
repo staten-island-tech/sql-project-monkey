@@ -64,8 +64,7 @@ export default {
         signIn(supabase, userEmail, userPassword)
       }
     }
-  },
-  components: { RouterLink }
+  }
 }
 </script>
 
