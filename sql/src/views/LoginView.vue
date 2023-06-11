@@ -63,9 +63,7 @@ export default {
       } else {
         signIn(supabase, userEmail, userPassword)
       }
-      this.$emit('loggedin')
-    },
-    emits: ['loggedin']
+    }
   }
 }
 </script>
