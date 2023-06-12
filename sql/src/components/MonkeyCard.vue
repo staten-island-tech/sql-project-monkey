@@ -13,6 +13,7 @@
 <script>
 import { useCartStore } from '../stores/cart.js'
 import { authStore } from '../stores/counter.js'
+import router from '../router/index'
 const cartStore = useCartStore()
 
 
