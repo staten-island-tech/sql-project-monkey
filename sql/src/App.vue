@@ -3,14 +3,10 @@
     <header>
       <div class="wrapper">
         <nav>
-          <div class="Links">
-            <RouterLink class="router" to="/">Home</RouterLink>
-            <RouterLink class="router" to="/">Monkeys</RouterLink>
-            <RouterLink class="router" to="/">Shopping Cart</RouterLink>
-            <RouterLink class="router" to="/">Cart</RouterLink>
-            <RouterLink class="router" to="/">Orders</RouterLink>
-          </div>
           <div class="login">
+            <RouterLink class="router" v-if="!loggedin" to="/login">Login</RouterLink>
+          </div>
+          <div class="logout">
             <button v-if="loggedin" @click="logOut">Log Out</button>
           </div>
         </nav>
@@ -27,7 +23,7 @@ export default {
   methods: {
     logOut: function () {
       authStore().clearUser()
-      router.push('login')
+      router.push('home')
       this.loggedin = false
     },
     login: function () {
