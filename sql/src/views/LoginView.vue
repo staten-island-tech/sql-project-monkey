@@ -46,7 +46,7 @@ async function signIn(supabase, userEmail, userPassword) {
       data: { user }
     } = await supabase.auth.getUser()
     authStore().loadUser(user.id)
-    router.push('home')
+    router.push('about')
   } catch (error) {
     alert('Please check your credentials')
     console.error(error)

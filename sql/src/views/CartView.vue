@@ -2,9 +2,9 @@
   <Cart v-for="monkey in cartStore.cart" :monkey="monkey" :key="monkey.id" />
 
   <div class="cart-info">
-    Total price: ${{ calculateTotal() }}
+    <p >Total price: ${{ calculateTotal() }}</p>
     <p v-show="cartStore.cart.length === 0">Your cart is empty.</p>
-    Shipping Time: {{ getShippingTime() }} days
+    <p> Shipping Time: {{ getShippingTime() }} days </p>
     <button v-show="cartStore.cart.length > 0" @click="reset">Clear Cart</button>
     <button v-show="cartStore.cart.length > 0" @click="completeOrder"> Complete Purchase </button>
   </div>
@@ -103,4 +103,4 @@ onMounted(() => {
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style></style>
