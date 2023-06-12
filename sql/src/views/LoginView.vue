@@ -49,7 +49,7 @@ async function signIn(supabase, userEmail, userPassword) {
     router.push('home')
   } catch (error) {
     alert('Please check your credentials')
- console.error(error)
+    console.error(error)
   }
 }
 
@@ -66,7 +66,7 @@ export default {
       }
       this.$emit('loggedin')
     },
-    emits: ['loggedin'],
+    emits: ['loggedin']
   }
 }
 </script>
