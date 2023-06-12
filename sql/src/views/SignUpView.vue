@@ -43,11 +43,11 @@ async function signUp(supabase, userEmail, userPassword) {
       email: userEmail,
       password: userPassword
     })
-    let {
-      data: { user }
-    } = await supabase.auth.getUser()
+    let { data: { user } } = await supabase.auth.getUser()
     await supabase.from('logins').insert([{ user_id: user.id, email: userEmail }])
-  } catch (error) {}
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export default {
@@ -62,9 +62,9 @@ export default {
       } else if (userPassword != confirmed) {
         alert('Your confirmed password does not match')
       } else if (userPassword.length <= 5) {
-        alert('Password must contain at least 6 charaters')
+        alert('Password must contain at least 6 characters')
       } else {
-        signUp(supabase, userEmail, confirmed)
+        await signUp(supabase, userEmail, confirmed)
         authStore()
         router.push('login')
       }
