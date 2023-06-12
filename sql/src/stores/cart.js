@@ -9,7 +9,6 @@ export const useCartStore = defineStore(
 
     // reset function
 
-
     return { cart }
   },
   { persist: true }

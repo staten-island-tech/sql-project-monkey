@@ -12,7 +12,9 @@
 
 <script>
 import { useCartStore } from '../stores/cart.js'
+import { authStore } from '../stores/counter.js'
 const cartStore = useCartStore()
+
 
 export default {
   name: 'Card',
