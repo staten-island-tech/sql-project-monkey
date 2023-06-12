@@ -49,3 +49,9 @@ export default {
   }
 }
 </script>
+<style>.card > img {
+  width: 90%;
+  height: 55%;
+  border-radius: 1rem;
+};
+</style>
