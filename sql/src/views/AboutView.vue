@@ -25,3 +25,5 @@ onMounted(() => {
   getMonkeys()
 })
 </script>
+
+<style></style>
