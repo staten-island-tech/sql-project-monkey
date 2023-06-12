@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { authStore } from '../stores/counter'
+import { authStore } from '../stores/counter.js'
 import { supabase } from '../supabase'
 import router from '../router'
 import { RouterLink } from 'vue-router'
@@ -49,6 +49,7 @@ async function signIn(supabase, userEmail, userPassword) {
     router.push('home')
   } catch (error) {
     alert('Please check your credentials')
+ console.error(error)
   }
 }
 
