@@ -6,7 +6,8 @@
       Total price: ${{ calculateTotal() }}
         <p v-show="cartStore.cart.length === 0">Your cart is empty.</p>
       Shipping Time: {{ getShippingTime() }} days
-
+      <button v-show="cartStore.cart.length > 0" @click="reset"> Clear Cart</button>
+<button></button>
       </div>
 
 </template>
@@ -37,6 +38,10 @@ function getShippingTime() {
 
   return shippingTime;
 }
+
+function reset() {
+  cartStore.cart.splice(0);
+    }
 
 onMounted(() => {
   //upon the page loading, take all the products and display them
