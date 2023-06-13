@@ -1,10 +1,10 @@
 <template>
-  <Cart v-for="monkey in cartStore.cart" :monkey="monkey" :key="monkey.id" />
+  <div class="cart-container"><Cart v-for="monkey in cartStore.cart" :monkey="monkey" :key="monkey.id" /></div>
 
   <div class="cart-info">
-    <p>Total price: ${{ calculateTotal() }}</p>
+    <p v-show="cartStore.cart.length > 0" >Total price: ${{ calculateTotal() }}</p>
     <p v-show="cartStore.cart.length === 0">Your cart is empty.</p>
-    <p>Shipping Time: {{ getShippingTime() }} days</p>
+    <p v-show="cartStore.cart.length > 0" >Shipping Time: {{ getShippingTime() }} days</p>
     <button v-show="cartStore.cart.length > 0" @click="reset">Clear Cart</button>
     <button v-show="cartStore.cart.length > 0" @click="completeOrder">Complete Purchase</button>
   </div>
@@ -89,4 +89,21 @@ onMounted(() => {
 
 </script>
 
-<style></style>
+<style>
+
+.cart-container {
+display: flex;
+flex-direction: column;
+flex-wrap: wrap;
+justify-content: space-around;
+width: 90vw;
+margin: 2rem auto;}
+
+
+.cart-info {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+</style>

@@ -1,5 +1,6 @@
 <template>
-  <MonkeyCard v-for="monkey in monkeyStore.monkey" :monkey="monkey" :key="monkey.id" />
+ <div class="card-container"> <MonkeyCard v-for="monkey in monkeyStore.monkey" :monkey="monkey" :key="monkey.id" />
+ </div>
 </template>
 
 <script setup>
@@ -23,4 +24,16 @@ onMounted(() => {
 })
 </script>
 
-<style></style>
+<style>
+
+.card-container {
+
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: space-around;
+width: 90vw;
+margin: 2rem auto;}
+
+
+</style>

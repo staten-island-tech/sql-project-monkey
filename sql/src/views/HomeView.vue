@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <h1> Buy some monkeys in Monkey page 🐒🐒🐒🐒🐒🐒🐒🐒🐒🐒🐒🐒🐒</h1>
 </template>
 
 <script>

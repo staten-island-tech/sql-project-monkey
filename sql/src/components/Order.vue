@@ -11,7 +11,6 @@
         </li>
       </ul>
     </div>
-    <p v-if="orderCancelled">Order Cancelled</p>
     <button class="cancel-button" @click="cancelOrder(order.order_id)">Cancel Order</button>
   </div>
 </template>
@@ -23,15 +22,13 @@ import { useOrderStore } from '../stores/order';
 const orderStore = useOrderStore()
 const orderItemStore = useOrderItemStore()
 
+
 export default {
   props: {
-    order: Object // Specify the type of the 'order' prop as an Object
+    order: Object 
   },
-  computed: {
-    orderCancelled() {
-      return orderItemStore.orderCancelled;
-    }
-  },
+
+
   methods: {
     async cancelOrder(orderId) {
       try {
@@ -44,11 +41,9 @@ export default {
           .from('Orders')
           .delete()
           .eq('order_id', orderId);
+          orderStore.order = orderStore.order.filter(order => order.order_id !== orderId);
 
-        // Remove the order from the orderStore
-        orderStore.removeOrder(orderId);
-
-        // Remove the order items from the orderItemStore
+       
         orderItemStore.removeOrderItems(orderId);
       } catch (error) {
         console.error(error);

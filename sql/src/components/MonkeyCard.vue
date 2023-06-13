@@ -50,8 +50,8 @@ export default {
 }
 </script>
 <style>.card > img {
-  width: 90%;
-  height: 55%;
+  width: 25vw;
+  height: 25vh;
   border-radius: 1rem;
 };
 </style>
