@@ -1,5 +1,4 @@
 <template>
-
   <div class="login">
     <h1>Login</h1>
     <form>
@@ -40,7 +39,6 @@ async function signIn(supabase, userEmail, userPassword) {
     router.push('about')
   } catch (error) {
     alert('Please check your credentials')
-    console.error(error)
   }
 }
 

@@ -1,5 +1,3 @@
-
-
 <template>
   <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
@@ -7,13 +5,13 @@
     <div class="wrapper">
       <nav>
         <div class="login">
-            <RouterLink class="router" v-if="!loggedin" to="/login">Login</RouterLink>
-          </div>
-          <div class="logout">
-            <button v-if="loggedin" @click="logOut">Log Out</button>
-          </div>
+          <RouterLink class="router" v-if="!loggedin" to="/login">Login</RouterLink>
+        </div>
+        <div class="logout">
+          <button v-if="loggedin" @click="logOut">Log Out</button>
+        </div>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">Monkeys</RouterLink>
+        <RouterLink to="/monkeys">Monkeys</RouterLink>
         <RouterLink to="/cart" @click="checkUser">Cart </RouterLink>
         <RouterLink to="/order" @click="checkUser">Orders</RouterLink>
       </nav>
@@ -22,7 +20,6 @@
 
   <RouterView @loggedin="login" />
 </template>
-
 
 <script>
 import { authStore } from './stores/counter'
@@ -37,12 +34,12 @@ export default {
     },
     login: function () {
       this.loggedin = true
-    }, 
-    checkUser: function () {
- if (authStore().currentUser === null) {
-        router.push('login')
-     }
     },
+    checkUser: function () {
+      if (authStore().currentUser === null) {
+        router.push('login')
+      }
+    }
   },
   data() {
     return {
@@ -52,6 +49,4 @@ export default {
 }
 </script>
 
-
-<style>
-</style>
+<style></style>

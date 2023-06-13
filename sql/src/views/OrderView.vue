@@ -6,25 +6,21 @@
 </template>
 
 <script setup>
-import OrderCard from '../components/Order.vue';
-import { ref, onMounted } from 'vue';
-import { supabase } from '../supabase';
+import OrderCard from '../components/Order.vue'
+import { ref, onMounted } from 'vue'
+import { supabase } from '../supabase'
 
-const orders = ref([]);
+const orders = ref([])
 
 const fetchOrders = async () => {
   try {
-    const { data } = await supabase.from('Orders').select('*');
+    const { data } = await supabase.from('Orders').select('*')
 
-
-
-    orders.value = data;
-  } catch (error) {
-    console.error(error);
-  }
-};
+    orders.value = data
+  } catch (error) {}
+}
 
 onMounted(() => {
-  fetchOrders();
-});
+  fetchOrders()
+})
 </script>
