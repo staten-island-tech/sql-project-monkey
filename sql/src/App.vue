@@ -32,7 +32,7 @@ export default {
   methods: {
     logOut: function () {
       authStore().clearUser()
-      router.push('home')
+      router.push('/')
       this.loggedin = false
     },
     login: function () {

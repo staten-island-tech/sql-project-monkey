@@ -1,14 +1,5 @@
 <template>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-  />
-  <a
-    ><RouterLink to="/home"
-      ><button class="back"><i class="fa fa-home"></i></button></RouterLink
-  ></a>
+
   <div class="signUp">
     <h1 class="title">Sign Up</h1>
     <form class="signUpForm">
@@ -60,6 +51,7 @@ export default {
   methods: {
     async signup(e) {
       e.preventDefault()
+      let emailCheck = await supabase.from('logins').select().eq('email', this.email)
       let userEmail = document.getElementById('email').value
       let userPassword = document.getElementById('password').value
       let confirmed = document.getElementById('confirm').value
@@ -69,7 +61,9 @@ export default {
         alert('Your confirmed password does not match')
       } else if (userPassword.length <= 5) {
         alert('Password must contain at least 6 characters')
-      } else {
+      } else if (emailCheck.data.length > 0){
+        alert('Sorry, this email is already in use or does not exist')}
+      else {
         await signUp(supabase, userEmail, confirmed)
         authStore()
         router.push('login')
