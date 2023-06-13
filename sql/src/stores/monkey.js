@@ -1,8 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useMonkeyStore = defineStore('product', () => {
-  // reactive array for product
+export const useMonkeyStore = defineStore('order', () => {
   const monkey = ref([])
 
   return { monkey }

@@ -44,13 +44,13 @@ function reset() {
 
 async function completeOrder() {
   try {
-    // Get the user ID from the auth store
+    
     const userID = await getUserId()
 
-    // Generate a single order ID for the entire order
+
     const orderID = Math.random()
 
-    // Create an object representing the order
+
     const order = {
       order_id: orderID,
       user_id: userID,
@@ -58,12 +58,10 @@ async function completeOrder() {
       total_shipping: getShippingTime()
     }
 
-    // Insert the order into the Orders table
-    const { insertedOrderData } = await supabase.from('Orders').insert([order])
+    const { data} = await supabase.from('Orders').insert([order])
 
-    // Iterate over each item in the cart
     for (const monkey of cartStore.cart) {
-      // Create an object representing the order item
+
       const orderItem = {
         order_item_id: Math.random(),
         order_id: orderID,
@@ -71,11 +69,9 @@ async function completeOrder() {
         quantity: monkey.count
       }
 
-      // Insert the order item into the OrderItems table
       await supabase.from('OrderItems').insert([orderItem])
     }
 
-    // Clear the cart after completing the order
     reset()
   } catch (error) {}
 }
@@ -85,14 +81,12 @@ async function getUserId() {
   return user
 }
 
-async function x() {
-  const userId = await getUserId()
-  return userId
-}
+
 
 onMounted(() => {
   // upon the page loading, take all the products and display them
 })
+
 </script>
 
 <style></style>
